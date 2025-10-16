@@ -1,0 +1,16 @@
+# Quick test Makefile for MiniLibX
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g -DGL_SILENCE_DEPRECATION
+MLX_DIR = ./lib/minilibx
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+
+test: test_mlx.c
+	@echo "Building MiniLibX test..."
+	@$(CC) $(CFLAGS) -I$(MLX_DIR) test_mlx.c $(MLX_FLAGS) -o test_mlx
+	@echo "✓ Test compiled! Run with: ./test_mlx"
+
+clean:
+	@rm -f test_mlx
+	@echo "✓ Test cleaned!"
+
+.PHONY: test clean
