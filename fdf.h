@@ -66,7 +66,7 @@ typedef struct s_point
 	int		x;
 	int		y;
 	int		z;
-	int		color;
+	// int		color;
 }	t_point;
 
 /* Map structure to hold the 3D data */
@@ -140,7 +140,7 @@ int		get_color(t_point current, t_point start, t_point end, t_point delta);
 
 /* Projection functions */
 t_point	project_point(int x, int y, int z, t_fdf *fdf);
-t_point	isometric_projection(int x, int y, int z, t_fdf *fdf);
+t_point	isometric_projection(float x, float y, t_fdf *fdf);
 void	apply_zoom_and_offset(t_point *point, t_camera *camera);
 
 /* Event handling */

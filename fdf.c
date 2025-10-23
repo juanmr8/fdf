@@ -60,6 +60,7 @@ int main(int argc, char **argv)
 	mlx_hook(fdf.mlx->win_ptr, 17, 0, handle_close, &fdf);
 	mlx_loop(fdf.mlx->mlx_ptr);
 
+	
 	// Cleanup (only reached after mlx_loop exits)
 	return (0);
 }
