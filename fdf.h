@@ -81,6 +81,16 @@ typedef struct s_map
 	int		z_range;
 }	t_map;
 
+/* Map structure to draw lines */
+typedef struct s_line
+{
+    int dx;
+    int dy;
+    int sx;
+    int sy;
+    int err;
+}   t_line;
+
 /* Camera/View structure for transformations */
 typedef struct s_camera
 {
@@ -137,6 +147,8 @@ void	draw_map(t_fdf *fdf);
 void	draw_line(t_point start, t_point end, t_fdf *fdf);
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
 int		get_color(t_point current, t_point start, t_point end, t_point delta);
+t_line 	init_line(t_point start, t_point end);
+
 
 /* Projection functions */
 t_point	project_point(int x, int y, int z, t_fdf *fdf);

@@ -66,3 +66,79 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 	 */
 	*(unsigned int*)dst = color;
 }
+
+void	draw_line(t_point start, t_point end, t_fdf *fdf)
+{
+	t_line	line;
+	int	x;
+	int	y;
+	int	e2;
+
+	line = init_line(start, end);
+	x = start.x;
+	y = start.y;
+
+	while(1)
+	{
+		put_pixel(fdf->mlx, x, y, COLOR_WHITE);
+		if (x == end.x && y == end.y)
+			break ;
+		e2 = line.err * 2;
+		if (e2 > -line.dy)
+		{
+			line.err -= line.dy;
+			x += line.sx;
+		}
+		if (e2 < line.dx)
+		{
+			line.err += line.dx;
+			y += line.sy;
+		}
+	}
+}
+
+void draw_map(t_fdf *fdf)
+{
+	int	x; // Loop through cols
+	int	y; // Loop through rows
+	t_point current; // Screen coordinates of current point
+	t_point right; // Screen coordinates of right neighbor
+	t_point down; // Screen coordinates of down neighbor
+
+	y = 0;
+	while (y < fdf->map->height)
+	{
+		x = 0;
+		while (x < fdf->map->width)
+		{
+			if (x < fdf->map->width - 1)
+			{
+				current = isometric_projection(x, y, fdf);
+				right = isometric_projection(x + 1, y, fdf);
+				draw_line(current, right, fdf);
+			}
+			if (y < fdf->map->height - 1)
+			{
+				current = isometric_projection(x, y, fdf);
+				down = isometric_projection(x, y + 1, fdf);
+				draw_line(current, down, fdf);
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+t_line init_line(t_point start, t_point end)
+{
+	t_line line;
+
+	line.dx = abs(end.x - start.x);
+	line.dy = abs(end.y - start.y);
+	line.sx = (start.x < end.x) ? 1 : -1;
+	line.sy = (start.y < end.y) ? 1 : -1;
+	line.err = line.dx - line.dy;
+
+	return (line);
+}
+

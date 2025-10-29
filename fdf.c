@@ -56,11 +56,21 @@ int main(int argc, char **argv)
 
 	printf("✓ Graphics initialized successfully\n");
 
+	draw_map(&fdf);
+	mlx_put_image_to_window(fdf.mlx->mlx_ptr, fdf.mlx->win_ptr, fdf.mlx->img_ptr, 0, 0);
+
+	printf("✓ Wireframe rendered!\n");
+	/**
+	 * Here we using callbacks from MinilibX - They he
+	 */
+	// This one handles any keypress - particularly the ESC as we use it to close
 	mlx_key_hook(fdf.mlx->win_ptr, handle_keypress, &fdf);
+	// This one handles clicking the button X on the window
 	mlx_hook(fdf.mlx->win_ptr, 17, 0, handle_close, &fdf);
+	// This handles event listening overall - is watching
 	mlx_loop(fdf.mlx->mlx_ptr);
 
-	
+
 	// Cleanup (only reached after mlx_loop exits)
 	return (0);
 }

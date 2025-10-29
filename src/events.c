@@ -1,5 +1,4 @@
 #include "../fdf.h"
-#define KEY_ESC 53
 
 int	handle_keypress(int keycode, t_fdf *fdf)
 {
