@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   drawing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/02 15:39:14 by jmora-ro          #+#    #+#             */
+/*   Updated: 2025/11/02 16:09:28 by jmora-ro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 void	put_pixel(t_mlx *mlx, int x, int y, int color)
@@ -67,7 +79,7 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	draw_line(t_point start, t_point end, t_fdf *fdf)
+void	draw_line(t_point start, t_point end, t_fdf *fdf, int color)
 {
 	t_line	line;
 	int	x;
@@ -80,7 +92,7 @@ void	draw_line(t_point start, t_point end, t_fdf *fdf)
 
 	while(1)
 	{
-		put_pixel(fdf->mlx, x, y, COLOR_WHITE);
+		put_pixel(fdf->mlx, x, y, color);
 		if (x == end.x && y == end.y)
 			break ;
 		e2 = line.err * 2;
@@ -101,9 +113,6 @@ void draw_map(t_fdf *fdf)
 {
 	int	x; // Loop through cols
 	int	y; // Loop through rows
-	t_point current; // Screen coordinates of current point
-	t_point right; // Screen coordinates of right neighbor
-	t_point down; // Screen coordinates of down neighbor
 
 	y = 0;
 	while (y < fdf->map->height)
@@ -111,21 +120,41 @@ void draw_map(t_fdf *fdf)
 		x = 0;
 		while (x < fdf->map->width)
 		{
-			if (x < fdf->map->width - 1)
-			{
-				current = isometric_projection(x, y, fdf);
-				right = isometric_projection(x + 1, y, fdf);
-				draw_line(current, right, fdf);
-			}
-			if (y < fdf->map->height - 1)
-			{
-				current = isometric_projection(x, y, fdf);
-				down = isometric_projection(x, y + 1, fdf);
-				draw_line(current, down, fdf);
-			}
+			draw_horizontal_lines(fdf, x, y);
+			draw_vertical_lines(fdf, x, y);
 			x++;
 		}
 		y++;
+	}
+}
+
+void	draw_horizontal_lines(t_fdf *fdf, int x, int y)
+{
+	t_point	current;
+	t_point	right;
+	int	color;
+
+	if (x < fdf->map->width - 1)
+	{
+		current = isometric_projection(x, y, fdf);
+		right = isometric_projection(x + 1, y, fdf);
+		color = get_gradient_color(fdf->map->z_matrix[y][x], fdf->map);
+		draw_line(current, right, fdf, color);
+	}
+}
+
+void	draw_vertical_lines(t_fdf *fdf, int x, int y)
+{
+	t_point	current;
+	t_point	down;
+	int	color;
+
+	if (y < fdf->map->height -1)
+	{
+		current = isometric_projection(x, y, fdf);
+		down = isometric_projection(x, y + 1, fdf);
+		color = get_gradient_color(fdf->map->z_matrix[y][x], fdf->map);
+		draw_line(current, down, fdf, color);
 	}
 }
 
@@ -140,5 +169,18 @@ t_line init_line(t_point start, t_point end)
 	line.err = line.dx - line.dy;
 
 	return (line);
+}
+
+
+
+void	redraw(t_fdf *fdf)
+{
+	int	total_bytes;
+
+	total_bytes = WINDOW_WIDTH * WINDOW_HEIGHT * (fdf->mlx->bpp / 8);
+	ft_bzero(fdf->mlx->img_data, total_bytes);
+	draw_map(fdf);
+	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img_ptr, 0, 0);
+	ft_write_guide(fdf);
 }
 

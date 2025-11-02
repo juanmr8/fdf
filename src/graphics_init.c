@@ -14,6 +14,7 @@ int init_graphics(t_fdf *fdf)
 
 	if (fdf->mlx->win_ptr == NULL)
 		return (0);
+	mlx_do_sync(fdf->mlx->mlx_ptr);
 
 	// Create image buffer
 	fdf->mlx->img_ptr = mlx_new_image(fdf->mlx->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);

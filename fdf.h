@@ -47,15 +47,9 @@
 
 /* Colors */
 # define COLOR_WHITE 0xFFFFFF
-# define COLOR_RED 0xFF0000
-# define COLOR_GREEN 0x00FF00
-# define COLOR_BLUE 0x0000FF
-# define COLOR_YELLOW 0xFFFF00
-# define COLOR_PURPLE 0xFF00FF
-# define COLOR_CYAN 0x00FFFF
 
 /* Default values */
-# define DEFAULT_ZOOM 20
+# define DEFAULT_ZOOM 1
 # define DEFAULT_Z_SCALE 1
 
 /* ================================ STRUCTURES ============================== */
@@ -68,6 +62,21 @@ typedef struct s_point
 	int		z;
 	// int		color;
 }	t_point;
+
+typedef struct s_color
+{
+    int r;
+    int g;
+    int b;
+}   t_color;
+
+typedef struct s_mouse_state
+{
+	int	right_button_down;
+	int	left_button_down;
+	int	last_x;
+	int	last_y;
+}	t_mouse_state;
 
 /* Map structure to hold the 3D data */
 typedef struct s_map
@@ -119,9 +128,10 @@ typedef struct s_mlx
 /* Main FDF structure */
 typedef struct s_fdf
 {
-	t_map		*map;
-	t_camera	*camera;
-	t_mlx		*mlx;
+	t_map			*map;
+	t_camera		*camera;
+	t_mlx			*mlx;
+	t_mouse_state	mouse;
 }	t_fdf;
 
 /* ================================ PROTOTYPES ============================== */
@@ -144,10 +154,18 @@ int		create_image(t_mlx *mlx);
 
 /* Drawing functions */
 void	draw_map(t_fdf *fdf);
-void	draw_line(t_point start, t_point end, t_fdf *fdf);
+void	draw_line(t_point start, t_point end, t_fdf *fdf, int color);
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
-int		get_color(t_point current, t_point start, t_point end, t_point delta);
+void	draw_horizontal_lines(t_fdf *fdf, int x, int y);
+void	draw_vertical_lines(t_fdf *fdf, int x, int y);
+int		get_gradient_color(int z, t_map *map);
+int		get_gradient_one(double percent);
+int		get_gradient_two(double percent);
+int		get_gradient_three(double percent);
+int		get_gradient_four(double percent);
+void 	redraw(t_fdf *fdf);
 t_line 	init_line(t_point start, t_point end);
+void ft_write_guide(t_fdf *fdf);
 
 
 /* Projection functions */
@@ -159,6 +177,13 @@ void	apply_zoom_and_offset(t_point *point, t_camera *camera);
 int		handle_keypress(int keycode, t_fdf *fdf);
 int		handle_mouse(int button, int x, int y, t_fdf *fdf);
 int		handle_close(t_fdf *fdf);
+int 	handle_mouse(int button, int x, int y, t_fdf *fdf);
+
+/* Mouse Events */
+int handle_mouse_button(int button, int x, int y, t_fdf *fdf);
+int handle_mouse_release(int button, int x, int y, t_fdf *fdf);
+int handle_mouse_motion(int x, int y, t_fdf *fdf);
+
 
 /* Memory management */
 int		allocate_map(t_map *map);

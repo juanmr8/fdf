@@ -2,12 +2,22 @@
 
 int main(int argc, char **argv)
 {
-	t_fdf fdf;
-    t_map map;
-    t_mlx mlx;
+	t_fdf	fdf;
+    t_map	map;
+    t_mlx	mlx;
+	t_camera	camera;
 
 	fdf.map = &map;
     fdf.mlx = &mlx;
+	fdf.camera = &camera;
+	camera.alpha = 0.0;    // ADD THIS
+	camera.beta = 0.0;     // ADD THIS
+	camera.gamma = 0.0;    // ADD THIS
+	fdf.mouse.right_button_down = 0;  // ADD THIS
+	fdf.mouse.left_button_down = 0;
+	fdf.mouse.last_x = 0;              // ADD THIS
+	fdf.mouse.last_y = 0;              // ADD THIS
+
     if (argc != 2)
     {
         usage();
@@ -41,6 +51,9 @@ int main(int argc, char **argv)
 	{
 		error_exit("Failed to allocate memory");
 	}
+	camera.zoom = 20;
+	camera.x_offset = WINDOW_WIDTH / 2;
+	camera.y_offset = WINDOW_HEIGHT / 2;
 	// In main, after parse_map_data succeeds:
 	if (parse_map_data(argv[1], &map))
 	{
@@ -58,18 +71,20 @@ int main(int argc, char **argv)
 
 	draw_map(&fdf);
 	mlx_put_image_to_window(fdf.mlx->mlx_ptr, fdf.mlx->win_ptr, fdf.mlx->img_ptr, 0, 0);
+	ft_write_guide(&fdf);
+
 
 	printf("✓ Wireframe rendered!\n");
 	/**
 	 * Here we using callbacks from MinilibX - They he
 	 */
-	// This one handles any keypress - particularly the ESC as we use it to close
-	mlx_key_hook(fdf.mlx->win_ptr, handle_keypress, &fdf);
-	// This one handles clicking the button X on the window
+	mlx_hook(fdf.mlx->win_ptr, 2, 0, handle_keypress, &fdf);
 	mlx_hook(fdf.mlx->win_ptr, 17, 0, handle_close, &fdf);
-	// This handles event listening overall - is watching
+	mlx_hook(fdf.mlx->win_ptr, 4, 0, handle_mouse_button, &fdf);   // Press
+	mlx_hook(fdf.mlx->win_ptr, 5, 0, handle_mouse_release, &fdf);  // Release
+	mlx_hook(fdf.mlx->win_ptr, 6, 0, handle_mouse_motion, &fdf);   // Motion
+	// Start event loop
 	mlx_loop(fdf.mlx->mlx_ptr);
-
 
 	// Cleanup (only reached after mlx_loop exits)
 	return (0);

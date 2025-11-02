@@ -38,8 +38,11 @@ SRCS = fdf.c \
        $(SRC_DIR)/graphics_init.c \
        $(SRC_DIR)/projection.c \
        $(SRC_DIR)/drawing.c \
+       $(SRC_DIR)/drawing_utils.c \
        $(SRC_DIR)/events.c \
-       $(SRC_DIR)/memory.c
+       $(SRC_DIR)/mouse.c \
+       $(SRC_DIR)/memory.c \
+       $(SRC_DIR)/color.c \
 
 # Object files
 OBJS = $(SRCS:.c=.o)
