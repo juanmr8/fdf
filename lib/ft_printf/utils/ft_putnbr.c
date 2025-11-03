@@ -1,19 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 09:51:14 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/03 11:23:54 by jmora-ro         ###   ########.fr       */
+/*   Created: 2025/03/06 15:44:01 by jmora-ro          #+#    #+#             */
+/*   Updated: 2025/05/12 14:48:26 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+// static void	ft_putchar_std(char c)
+// {
+// 	write(1, &c, 1);
+// }
+
+void	ft_putnbr(int nb)
 {
-	new->next = *lst;
-	*lst = new;
+	if (nb == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		return ;
+	}
+	if (nb < 0)
+	{
+		ft_putchar('-');
+		nb = -nb;
+	}
+	if (nb >= 10)
+		ft_putnbr(nb / 10);
+	ft_putchar((nb % 10) + '0');
 }

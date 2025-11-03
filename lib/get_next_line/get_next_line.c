@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:05 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/06/03 18:45:43 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/03 11:23:38 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,21 +122,3 @@ char	*get_next_line(int fd)
 		return (handle_eof(&stash, buffer, &line));
 	return (free(buffer), (line));
 }
-
-/* int	main(void)
-{
-    int fd = open("test.txt", O_RDONLY);
-    if (fd == -1)
-    {
-        printf("Error opening file\n");
-        return (1);
-    }
-    printf("%s", get_next_line(fd));
-    printf("%s", get_next_line(fd));
-    printf("%s", get_next_line(fd));
-    printf("%s", get_next_line(fd));
-    printf("%s", get_next_line(fd));
-    printf("%s", get_next_line(fd));
-    close(fd);
-    return (0);
-} */

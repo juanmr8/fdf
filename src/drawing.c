@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:39:14 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/02 16:09:28 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/03 10:11:53 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,51 +127,6 @@ void draw_map(t_fdf *fdf)
 		y++;
 	}
 }
-
-void	draw_horizontal_lines(t_fdf *fdf, int x, int y)
-{
-	t_point	current;
-	t_point	right;
-	int	color;
-
-	if (x < fdf->map->width - 1)
-	{
-		current = isometric_projection(x, y, fdf);
-		right = isometric_projection(x + 1, y, fdf);
-		color = get_gradient_color(fdf->map->z_matrix[y][x], fdf->map);
-		draw_line(current, right, fdf, color);
-	}
-}
-
-void	draw_vertical_lines(t_fdf *fdf, int x, int y)
-{
-	t_point	current;
-	t_point	down;
-	int	color;
-
-	if (y < fdf->map->height -1)
-	{
-		current = isometric_projection(x, y, fdf);
-		down = isometric_projection(x, y + 1, fdf);
-		color = get_gradient_color(fdf->map->z_matrix[y][x], fdf->map);
-		draw_line(current, down, fdf, color);
-	}
-}
-
-t_line init_line(t_point start, t_point end)
-{
-	t_line line;
-
-	line.dx = abs(end.x - start.x);
-	line.dy = abs(end.y - start.y);
-	line.sx = (start.x < end.x) ? 1 : -1;
-	line.sy = (start.y < end.y) ? 1 : -1;
-	line.err = line.dx - line.dy;
-
-	return (line);
-}
-
-
 
 void	redraw(t_fdf *fdf)
 {

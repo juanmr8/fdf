@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:24:22 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/07/17 16:10:32 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/03 11:25:06 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 // Function 1: Show error and exit
 void error_exit(char *message)
 {
-    printf("Error: %s\n", message);
+    ft_printf("Error: %s\n", message);
     exit(1);
 }
 
 // Function 2: Show how to use the program
 void usage(void)
 {
-    printf("Usage: fdf <filename.fdf>\n");
+    ft_printf("Usage: fdf <filename.fdf>\n");
 }
 
 // Function 3: Check if file exists and can be opened

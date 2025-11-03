@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 09:51:14 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/03 11:23:54 by jmora-ro         ###   ########.fr       */
+/*   Created: 2025/05/12 13:52:33 by jmora-ro          #+#    #+#             */
+/*   Updated: 2025/05/12 16:56:41 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+int	ft_putstr(char *str)
 {
-	new->next = *lst;
-	*lst = new;
+	int	count;
+
+	if (!str)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	count = ft_strlen(str);
+	write(1, str, count);
+	return (count);
 }
