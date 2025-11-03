@@ -4,19 +4,19 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g -DGL_SILENCE_DEPRECATION
 INCLUDES = -I. -I./lib/libft -I./lib/get_next_line -I./lib/ft_printf -I./lib/minilibx
 
-LIBFT_DIR = ./lib/libft
+LIBFT_DIR = lib/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-FT_PRINTF_DIR = ./lib/ft_printf
+FT_PRINTF_DIR = lib/ft_printf
 FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 
-GNL_DIR = ./lib/get_next_line
+GNL_DIR = lib/get_next_line
 GNL_FILES = $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c
 GNL_OBJS = $(GNL_FILES:.c=.o)
 
-MLX_DIR = ./lib/minilibx
+MLX_DIR = lib/minilibx
 MLX_LIB = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 SRC_DIR = ./src
 SRCS = fdf.c \
@@ -37,7 +37,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(FT_PRINTF) $(GNL_OBJS) $(OBJS) $(MLX_LIB)
-	$(CC) $(CFLAGS) $(OBJS) $(GNL_OBJS) -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lftprintf $(MLX_FLAGS) -lm -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(GNL_OBJS) $(MLX_FLAGS) -L$(FT_PRINTF_DIR) -lftprintf -L$(LIBFT_DIR) -lft -lm -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)

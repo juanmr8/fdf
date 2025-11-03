@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:38:58 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/03 10:11:57 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:54:26 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,4 @@ void	draw_vertical_lines(t_fdf *fdf, int x, int y)
 		draw_line(current, down, fdf, color);
 	}
 }
+

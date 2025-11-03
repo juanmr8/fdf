@@ -38,3 +38,23 @@ void calculate_map_stats(t_map *map)
 	*/
 	map->z_range = map->z_max - map->z_min;
 }
+
+// Count how many numbers are in a line
+int count_words(char *str, char delimiter)
+{
+    int count = 0;
+    int in_word = 0;
+
+    while (*str)
+    {
+        if (*str == delimiter || *str == '\n')
+            in_word = 0;
+        else if (!in_word)
+        {
+            in_word = 1;
+            count++;
+        }
+        str++;
+    }
+    return (count);
+}

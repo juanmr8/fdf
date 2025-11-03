@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:24:22 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/03 11:25:06 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/03 16:10:23 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void usage(void)
 // Function 3: Check if file exists and can be opened
 int is_valid_file(char *filename)
 {
-    int fd = open(filename, O_RDONLY);  // Try to open file for reading
-    if (fd < 0)                         // If open failed
-        return (0);                     // Return false
-    close(fd);                          // Close the file
-    return (1);                         // Return true (file is valid)
+	int fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	close(fd);
+	return (1);
 }
 
 

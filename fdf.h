@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:58:39 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/03 11:22:31 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:54:54 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,29 @@
 # define WINDOW_HEIGHT 800
 # define WINDOW_TITLE "FDF - Wireframe Viewer"
 
-# define KEY_ESC 53
-# define KEY_SPACE 49
+#ifdef __linux__
+    # define KEY_ESC 65307
+    # define KEY_SPACE 32
+    # define KEY_PLUS 61        // for zoom in (was 24)
+    # define KEY_MINUS 45       // for zoom out (was 27)
+    # define KEY_1 49           // color scheme (was 18)
+    # define KEY_2 50           // color scheme (was 19)
+    # define KEY_3 51           // color scheme (was 20)
+    # define KEY_4 52           // color scheme (was 21)
+    # define KEY_5 53           // color scheme (was 23)
+	# define CLICK_RIGHT 3
+#else
+    # define KEY_ESC 53
+    # define KEY_SPACE 49
+    # define KEY_PLUS 24
+    # define KEY_MINUS 27
+    # define KEY_1 18
+    # define KEY_2 19
+    # define KEY_3 20
+    # define KEY_4 21
+    # define KEY_5 23
+	# define CLICK_RIGHT 2
+#endif
 
 typedef struct s_point
 {
@@ -118,6 +139,7 @@ int		get_gradient_three(double percent);
 int		get_gradient_four(double percent);
 void	redraw(t_fdf *fdf);
 t_line	init_line(t_point start, t_point end);
+void 	init_hooks(t_fdf *fdf);
 void	ft_write_guide(t_fdf *fdf);
 t_point	isometric_projection(float x, float y, t_fdf *fdf);
 int		handle_keypress(int keycode, t_fdf *fdf);

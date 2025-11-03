@@ -8,7 +8,7 @@ int handle_keypress(int keycode, t_fdf *fdf)
 		exit(0);
 	}
 
-	if (keycode == 24)
+	if (keycode == KEY_PLUS)
 	{
 		fdf->camera->zoom += 2;
 		redraw(fdf);
@@ -23,33 +23,33 @@ int handle_keypress(int keycode, t_fdf *fdf)
 		redraw(fdf);
 	}
 
-	if (keycode == 27)
+	if (keycode == KEY_MINUS)
 	{
 		if (fdf->camera->zoom > 2)
 			fdf->camera->zoom -= 2;
 		redraw(fdf);
 	}
-	if (keycode == 18)
+	if (keycode == KEY_1)
 	{
 		fdf->camera->color_scheme = 0;
 		redraw(fdf);
 	}
-	else if (keycode == 19)
+	else if (keycode == KEY_2)
 	{
 		fdf->camera->color_scheme = 1;
 		redraw(fdf);
 	}
-	else if (keycode == 20)
+	else if (keycode == KEY_3)
 	{
 		fdf->camera->color_scheme = 2;
 		redraw(fdf);
 	}
-	else if (keycode == 21)
+	else if (keycode == KEY_4)
 	{
 		fdf->camera->color_scheme = 3;
 		redraw(fdf);
 	}
-	else if (keycode == 23)
+	else if (keycode == KEY_5)
 	{
 		fdf->camera->color_scheme = 4;
 		redraw(fdf);
@@ -80,7 +80,18 @@ int handle_mouse(int button, int x, int y, t_fdf *fdf)
 
 int handle_close(t_fdf *fdf)
 {
+	mlx_destroy_image(fdf->mlx->mlx_ptr, fdf->mlx->img_ptr);
 	mlx_destroy_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr);
+	free(fdf->camera);
+
 	exit (0);
 }
 
+void init_hooks(t_fdf *fdf)
+{
+	mlx_hook(fdf->mlx->win_ptr, 2, 1L<<0, handle_keypress, fdf);
+	mlx_hook(fdf->mlx->win_ptr, 17, 0, handle_close, fdf);
+	mlx_hook(fdf->mlx->win_ptr, 4, 1L<<2, handle_mouse_button, fdf);
+	mlx_hook(fdf->mlx->win_ptr, 5, 1L<<3, handle_mouse_release, fdf);
+	mlx_hook(fdf->mlx->win_ptr, 6, 1L<<6, handle_mouse_motion, fdf);
+}

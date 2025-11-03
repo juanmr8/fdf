@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 11:01:48 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/02 14:52:05 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:20:28 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 // Single handler for button press
 int handle_mouse_button(int button, int x, int y, t_fdf *fdf)
 {
+        printf("Mouse button pressed: %d at (%d, %d)\n", button, x, y);  // ADD THIS
 	if (button == 1)  // Left click pressed - ADD THIS BLOCK
     {
         fdf->mouse.left_button_down = 1;
         fdf->mouse.last_x = x;
         fdf->mouse.last_y = y;
     }
-    if (button == 2)  // Right click pressed
+    if (button == 3)  // Right click pressed
     {
         fdf->mouse.right_button_down = 1;
         fdf->mouse.last_x = x;
@@ -47,7 +48,7 @@ int handle_mouse_release(int button, int x, int y, t_fdf *fdf)
     (void)y;
     if (button == 1)
         fdf->mouse.left_button_down = 0;
-    else if (button == 2)
+    else if (button == 3)
         fdf->mouse.right_button_down = 0;
     return (0);
 }
