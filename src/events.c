@@ -1,60 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   events.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/05 14:46:11 by jmora-ro          #+#    #+#             */
+/*   Updated: 2025/11/05 16:57:58 by jmora-ro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 int handle_keypress(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr);
+		free_resources(fdf);
 		exit(0);
 	}
-
-	if (keycode == KEY_PLUS)
-	{
-		fdf->camera->zoom += 2;
-		redraw(fdf);
-	}
-	if (keycode == KEY_SPACE)
-	{
-		fdf->camera->alpha = 0.0;
-		fdf->camera->beta = 0.0;
-		fdf->camera->zoom = 20;
-		fdf->camera->x_offset = WINDOW_WIDTH / 2;
-		fdf->camera->y_offset = WINDOW_HEIGHT / 2;
-		redraw(fdf);
-	}
-
-	if (keycode == KEY_MINUS)
-	{
-		if (fdf->camera->zoom > 2)
-			fdf->camera->zoom -= 2;
-		redraw(fdf);
-	}
-	if (keycode == KEY_1)
-	{
-		fdf->camera->color_scheme = 0;
-		redraw(fdf);
-	}
-	else if (keycode == KEY_2)
-	{
-		fdf->camera->color_scheme = 1;
-		redraw(fdf);
-	}
-	else if (keycode == KEY_3)
-	{
-		fdf->camera->color_scheme = 2;
-		redraw(fdf);
-	}
-	else if (keycode == KEY_4)
-	{
-		fdf->camera->color_scheme = 3;
-		redraw(fdf);
-	}
-	else if (keycode == KEY_5)
-	{
-		fdf->camera->color_scheme = 4;
-		redraw(fdf);
-	}
-    return (1);
+	handle_zoom_and_reset(keycode, fdf);
+	if (handle_color_keys(keycode, fdf))
+		return (1);
+	return (1);
 }
 
 
@@ -80,10 +48,7 @@ int handle_mouse(int button, int x, int y, t_fdf *fdf)
 
 int handle_close(t_fdf *fdf)
 {
-	mlx_destroy_image(fdf->mlx->mlx_ptr, fdf->mlx->img_ptr);
-	mlx_destroy_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr);
-	free(fdf->camera);
-
+	free_resources(fdf);
 	exit (0);
 }
 

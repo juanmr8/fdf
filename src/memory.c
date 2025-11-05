@@ -6,26 +6,12 @@
 /*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:24:22 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/03 16:10:23 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/05 16:43:20 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-// Function 1: Show error and exit
-void error_exit(char *message)
-{
-    ft_printf("Error: %s\n", message);
-    exit(1);
-}
-
-// Function 2: Show how to use the program
-void usage(void)
-{
-    ft_printf("Usage: fdf <filename.fdf>\n");
-}
-
-// Function 3: Check if file exists and can be opened
 int is_valid_file(char *filename)
 {
 	int fd = open(filename, O_RDONLY);
@@ -35,28 +21,15 @@ int is_valid_file(char *filename)
 	return (1);
 }
 
-
-// ========== NEW FUNCTION TO ADD ==========
-// Allocate memory for the 2D map array
 int allocate_map(t_map *map)
 {
-    // Step 1: Declare variables [x]
 	int i;
 	int *arr_width;
-    // - loop counter (int)
 
 	i = 0;
-    // Step 2: Allocate array of row pointers [x]
 	map->z_matrix = malloc(sizeof(int *) * map->height);
 	if (!map->z_matrix)
 		return (0);
-    // - Use malloc to create array of (int *) pointers [x]
-    // - Size: sizeof(int *) * map->height [x]
-    // - Store in map->z_matrix
-    // - Check if malloc failed (returns NULL)
-
-
-    // Step 3: Allocate each individual row
 	while (i < map->height)
 	{
 		arr_width = malloc(sizeof(int) * map->width);
@@ -70,15 +43,56 @@ int allocate_map(t_map *map)
 		map->z_matrix[i] = arr_width;
 		i++;
 	}
-    // - Use for loop from 0 to map->height
-    // - For each row: malloc array of integers
-    // - Size: sizeof(int) * map->width
-    // - Store in map->z_matrix[i]
-    // - If malloc fails: free all previous rows and return 0
-
-
-    // Step 4: Return success [x]
 	return (1);
-    // - Return 1
+}
 
+void	free_map(t_map *map)
+{
+	int i;
+
+	if (!map)
+		return ;
+	if (map->z_matrix)
+	{
+		i = 0;
+		while (i < map->height)
+		{
+			free(map->z_matrix[i]);
+			i++;
+		}
+		free(map->z_matrix);
+		map->z_matrix = NULL;
+	}
+	if (map->color_matrix)
+	{
+		i = 0;
+		while (i < map->height)
+		{
+			free(map->color_matrix[i]);
+			i++;
+		}
+		free(map->color_matrix);
+		map->color_matrix = NULL;
+	}
+}
+
+void	free_resources(t_fdf *fdf)
+{
+	if (!fdf)
+		return ;
+	if (fdf->mlx)
+	{
+		if (fdf->mlx->img_ptr)
+			mlx_destroy_image(fdf->mlx->mlx_ptr, fdf->mlx->img_ptr);
+		if (fdf->mlx->win_ptr)
+			mlx_destroy_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr);
+		if (fdf->mlx->mlx_ptr)
+		{
+			mlx_destroy_display(fdf->mlx->mlx_ptr);
+			free(fdf->mlx->mlx_ptr);
+			fdf->mlx->mlx_ptr = NULL;
+		}
+	}
+	if (fdf->map)
+		free_map(fdf->map);
 }

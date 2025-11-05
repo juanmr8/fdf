@@ -30,6 +30,7 @@ SRCS = fdf.c \
        $(SRC_DIR)/mouse.c \
        $(SRC_DIR)/keyboard.c \
        $(SRC_DIR)/memory.c \
+       $(SRC_DIR)/error.c \
        $(SRC_DIR)/color.c
 
 OBJS = $(SRCS:.c=.o)

@@ -1,24 +1,28 @@
-#include "../fdf.h"
-// Empty for now
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/05 16:24:26 by jmora-ro          #+#    #+#             */
+/*   Updated: 2025/11/05 16:40:07 by jmora-ro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
-void calculate_map_stats(t_map *map)
+void	calculate_map_stats(t_map *map)
 {
-    int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
-    if (map->height <= 0 || map->width <= 0)
-        return;
-	/*
-		Rationale for initializing the code to the first value:
-		What if all elevations are negative? Or all are above 100? Starting with 0 would give wrong results. Starting with the first actual value ensures we find the true minimum and maximum.
-	*/
-    map->z_min = map->z_matrix[0][0];
-    map->z_max = map->z_matrix[0][0];
-
-    // Your task: Complete the nested loops
+	if (map->height <= 0 || map->width <= 0)
+		return ;
+	map->z_min = map->z_matrix[0][0];
+	map->z_max = map->z_matrix[0][0];
 	while (y < map->height)
 	{
 		x = 0;
@@ -32,29 +36,51 @@ void calculate_map_stats(t_map *map)
 		}
 		y++;
 	}
-	/*
-		Rationale for this part:
-		We'll use z_range to normalize colors and scale the wireframe properly. If range is 0-100, we know how to color-code heights. If range is 5-7, we need different scaling.
-	*/
 	map->z_range = map->z_max - map->z_min;
 }
 
-// Count how many numbers are in a line
-int count_words(char *str, char delimiter)
+int	count_words(char *str, char delimiter)
 {
-    int count = 0;
-    int in_word = 0;
+	int	count;
+	int	in_word;
 
-    while (*str)
-    {
-        if (*str == delimiter || *str == '\n')
-            in_word = 0;
-        else if (!in_word)
-        {
-            in_word = 1;
-            count++;
-        }
-        str++;
-    }
-    return (count);
+	count = 0;
+	in_word = 0;
+	while (*str)
+	{
+		if (*str == delimiter || *str == '\n')
+			in_word = 0;
+		else if (!in_word)
+		{
+			in_word = 1;
+			count++;
+		}
+		str++;
+	}
+	return (count);
+}
+
+int	get_map_dimensions(char *filename, int *width, int *height)
+{
+	int		fd;
+	char	*line;
+	int		width_counter;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	*width = 0;
+	*height = 0;
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		width_counter = count_words(line, ' ');
+		if (width_counter > *width)
+			*width = width_counter;
+		(*height)++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (1);
 }

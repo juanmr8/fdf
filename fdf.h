@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:58:39 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/03 15:54:54 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/05 16:57:26 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,16 @@
 # define WINDOW_HEIGHT 800
 # define WINDOW_TITLE "FDF - Wireframe Viewer"
 
-#ifdef __linux__
-    # define KEY_ESC 65307
-    # define KEY_SPACE 32
-    # define KEY_PLUS 61        // for zoom in (was 24)
-    # define KEY_MINUS 45       // for zoom out (was 27)
-    # define KEY_1 49           // color scheme (was 18)
-    # define KEY_2 50           // color scheme (was 19)
-    # define KEY_3 51           // color scheme (was 20)
-    # define KEY_4 52           // color scheme (was 21)
-    # define KEY_5 53           // color scheme (was 23)
-	# define CLICK_RIGHT 3
-#else
-    # define KEY_ESC 53
-    # define KEY_SPACE 49
-    # define KEY_PLUS 24
-    # define KEY_MINUS 27
-    # define KEY_1 18
-    # define KEY_2 19
-    # define KEY_3 20
-    # define KEY_4 21
-    # define KEY_5 23
-	# define CLICK_RIGHT 2
-#endif
+# define KEY_ESC 65307
+# define KEY_SPACE 32
+# define KEY_PLUS 61
+# define KEY_MINUS 45
+# define KEY_1 49
+# define KEY_2 50
+# define KEY_3 51
+# define KEY_4 52
+# define KEY_5 53
+# define CLICK_RIGHT 3
 
 typedef struct s_point
 {
@@ -143,6 +130,9 @@ void 	init_hooks(t_fdf *fdf);
 void	ft_write_guide(t_fdf *fdf);
 t_point	isometric_projection(float x, float y, t_fdf *fdf);
 int		handle_keypress(int keycode, t_fdf *fdf);
+void	handle_zoom_and_reset(int keycode, t_fdf *fdf);
+int		handle_color_keys(int keycode, t_fdf *fdf);
+void	handle_key_number(int scheme, t_fdf *fdf);
 int		handle_mouse(int button, int x, int y, t_fdf *fdf);
 int		handle_close(t_fdf *fdf);
 int		handle_mouse_button(int button, int x, int y, t_fdf *fdf);
@@ -152,5 +142,8 @@ int		allocate_map(t_map *map);
 void	error_exit(char *message);
 void	usage(void);
 int		is_valid_file(char *filename);
+void	free_map(t_map *map);
+void	free_resources(t_fdf *fdf);
+
 
 #endif

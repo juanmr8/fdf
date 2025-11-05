@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:39:14 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/03 10:11:53 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:45:53 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,77 +20,21 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 		return ;
 	if (y < 0 || y > WINDOW_HEIGHT)
 		return ;
-
-	// mlx->img_data : A pointer to the first byte of the image buffer (memory address of pixel 0,0).
-
-	// y * mlx->size_line : *What it calculates:** How many bytes to skip to reach the correct **row**.
-	/** Example
-	 *
-		- You want pixel at y=3
-		- Each row is 4800 bytes (`size_line`)
-		- To reach row 3: skip 3 complete rows = `3 × 4800 = 14,400 bytes`
-
-		**Visual:**
-		```
-		[Row 0: 4800 bytes]
-		[Row 1: 4800 bytes]
-		[Row 2: 4800 bytes]
-		[Row 3: 4800 bytes] ← You're here after skipping 14,400 bytes
-
-	 */
-
-	 //  x * (mlx->bpp / 8): **What it calculates:** How many bytes to skip **within the row** to reach the correct column.
-	/**	 * Example
-		* **What it calculates:** How many bytes to skip **within the row** to reach the correct column.
-
-	**Breaking it down:**
-	- `mlx->bpp` = bits per pixel = 32
-	- `mlx->bpp / 8` = bytes per pixel = 32/8 = 4
-	- `x * 4` = how many bytes to skip for x pixels
-
-	**Example:**
-	- You want pixel at x=5
-	- Each pixel is 4 bytes
-	- To reach column 5: skip 5 pixels = `5 × 4 = 20 bytes`
-
-	**Visual (zoomed into Row 3):**
-	```
-	Row 3: [P0][P1][P2][P3][P4][P5][P6]...
-		↑4b ↑4b ↑4b ↑4b ↑4b ↑4b
-		Skip 20 bytes to reach P5 ───────┘
-	 */
 	dst = mlx->img_data + (y * mlx->size_line + x * (mlx->bpp / 8));
-
-	/**
-	 * **What it does:** Converts `dst` from `char *` to `unsigned int *`
-	**Why?**
-	- `dst` is `char *` (1-byte pointer)
-	- Colors are 4 bytes (32 bits = `unsigned int`)
-	- We need to write 4 bytes at once, not 1 byte!
-
-	**Visual:**
-	```
-	Before cast:
-	dst → [1 byte]
-
-	After cast to (unsigned int*):
-	dst → [4 bytes as one unit]
-	 */
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = mlx_get_color_value(mlx->mlx_ptr, color);
 }
 
 void	draw_line(t_point start, t_point end, t_fdf *fdf, int color)
 {
 	t_line	line;
-	int	x;
-	int	y;
-	int	e2;
+	int		x;
+	int		y;
+	int		e2;
 
 	line = init_line(start, end);
 	x = start.x;
 	y = start.y;
-
-	while(1)
+	while (1)
 	{
 		put_pixel(fdf->mlx, x, y, color);
 		if (x == end.x && y == end.y)
@@ -109,10 +53,10 @@ void	draw_line(t_point start, t_point end, t_fdf *fdf, int color)
 	}
 }
 
-void draw_map(t_fdf *fdf)
+void	draw_map(t_fdf *fdf)
 {
-	int	x; // Loop through cols
-	int	y; // Loop through rows
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < fdf->map->height)
@@ -135,7 +79,7 @@ void	redraw(t_fdf *fdf)
 	total_bytes = WINDOW_WIDTH * WINDOW_HEIGHT * (fdf->mlx->bpp / 8);
 	ft_bzero(fdf->mlx->img_data, total_bytes);
 	draw_map(fdf);
-	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img_ptr, 0, 0);
+	mlx_put_image_to_window(fdf->mlx->mlx_ptr,
+		fdf->mlx->win_ptr, fdf->mlx->img_ptr, 0, 0);
 	ft_write_guide(fdf);
 }
-

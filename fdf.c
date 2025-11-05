@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 15:57:05 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/03 16:17:01 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:35:32 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static	t_map	init_map(t_map *map, char **argv)
 		error_exit("Failed to allocate memory");
 	if (!parse_map_data(argv[1], map))
 		error_exit("Failed to parse map data");
+	calculate_map_stats(map);
 	return (*map);
 }
 
