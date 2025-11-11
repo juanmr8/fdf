@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 15:57:05 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/05 14:35:32 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:16:37 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static	t_camera	init_camera(t_camera *camera, t_fdf *fdf)
 	camera->z_scale = 1;
 	camera->alpha = 0.0;
 	camera->beta = 0.0;
-	camera->gamma = 0.0;
 	camera->projection = 0;
 	camera->color_scheme = 0;
 	return (*camera);

@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:58:39 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/11 15:20:31 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:17:05 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_camera
 	int		z_scale;
 	double	alpha;
 	double	beta;
-	double	gamma;
 	int		projection;
 	int		color_scheme;
 }	t_camera;
