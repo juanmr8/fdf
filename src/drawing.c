@@ -16,9 +16,9 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || x > WINDOW_WIDTH)
+	if (x < 0 || x >= mlx->screen_width)
 		return ;
-	if (y < 0 || y > WINDOW_HEIGHT)
+	if (y < 0 || y >= mlx->screen_height)
 		return ;
 	dst = mlx->img_data + (y * mlx->size_line + x * (mlx->bpp / 8));
 	*(unsigned int *)dst = mlx_get_color_value(mlx->mlx_ptr, color);
@@ -76,7 +76,7 @@ void	redraw(t_fdf *fdf)
 {
 	int	total_bytes;
 
-	total_bytes = WINDOW_WIDTH * WINDOW_HEIGHT * (fdf->mlx->bpp / 8);
+	total_bytes = fdf->mlx->screen_width * fdf->mlx->screen_height * (fdf->mlx->bpp / 8);
 	ft_bzero(fdf->mlx->img_data, total_bytes);
 	draw_map(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr,

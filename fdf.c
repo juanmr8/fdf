@@ -31,11 +31,11 @@ static	t_map	init_map(t_map *map, char **argv)
 	return (*map);
 }
 
-static	t_camera	init_camera(t_camera *camera)
+static	t_camera	init_camera(t_camera *camera, t_fdf *fdf)
 {
 	camera->zoom = 20;
-	camera->x_offset = WINDOW_WIDTH / 2;
-	camera->y_offset = WINDOW_HEIGHT / 2;
+	camera->x_offset = fdf->mlx->screen_width / 2;
+	camera->y_offset = fdf->mlx->screen_height / 2;
 	camera->z_scale = 1;
 	camera->alpha = 0.0;
 	camera->beta = 0.0;
@@ -72,9 +72,6 @@ int	main(int argc, char **argv)
 	t_mlx		mlx;
 	t_camera	camera;
 
-	map = init_map(&map, argv);
-	camera = init_camera(&camera);
-	fdf = init_fdf(&fdf, &map, &mlx, &camera);
 	if (argc != 2)
 	{
 		usage();
@@ -85,8 +82,11 @@ int	main(int argc, char **argv)
 		error_exit("Cannot read file");
 		return (1);
 	}
+	map = init_map(&map, argv);
+	fdf = init_fdf(&fdf, &map, &mlx, &camera);
 	if (!init_graphics(&fdf))
 		error_exit("Failed to initialize graphics");
+	camera = init_camera(&camera, &fdf);
 	first_paint(&fdf);
 	init_hooks(&fdf);
 	mlx_loop(fdf.mlx->mlx_ptr);

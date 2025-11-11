@@ -17,8 +17,8 @@ static void	reset_camera(t_fdf *fdf)
 	fdf->camera->alpha = 0.0;
 	fdf->camera->beta = 0.0;
 	fdf->camera->zoom = 20;
-	fdf->camera->x_offset = WINDOW_WIDTH / 2;
-	fdf->camera->y_offset = WINDOW_HEIGHT / 2;
+	fdf->camera->x_offset = fdf->mlx->screen_width / 2;
+	fdf->camera->y_offset = fdf->mlx->screen_height / 2;
 }
 
 void	handle_zoom_and_reset(int keycode, t_fdf *fdf)
