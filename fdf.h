@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:58:39 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/05 16:57:26 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/11 15:20:31 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,12 @@ typedef struct s_map
 
 typedef struct s_line
 {
-    int dx;
-    int dy;
-    int sx;
-    int sy;
-    int err;
-}   t_line;
-
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+}	t_line;
 
 typedef struct s_camera
 {
@@ -82,10 +81,10 @@ typedef struct s_camera
 	int		x_offset;
 	int		y_offset;
 	int		z_scale;
-	double	alpha;		// rotation around x-axis
-	double	beta;		// rotation around y-axis
-	double	gamma;		// rotation around z-axis
-	int		projection;	// 0 = isometric, 1 = parallel, etc.
+	double	alpha;
+	double	beta;
+	double	gamma;
+	int		projection;
 	int		color_scheme;
 }	t_camera;
 
@@ -110,7 +109,6 @@ typedef struct s_fdf
 	t_mouse_state	mouse;
 }	t_fdf;
 
-
 int		parse_map_data(char *filename, t_map *map);
 void	calculate_map_stats(t_map *map);
 int		get_map_dimensions(char *filename, int *width, int *height);
@@ -128,7 +126,7 @@ int		get_gradient_three(double percent);
 int		get_gradient_four(double percent);
 void	redraw(t_fdf *fdf);
 t_line	init_line(t_point start, t_point end);
-void 	init_hooks(t_fdf *fdf);
+void	init_hooks(t_fdf *fdf);
 void	ft_write_guide(t_fdf *fdf);
 t_point	isometric_projection(float x, float y, t_fdf *fdf);
 int		handle_keypress(int keycode, t_fdf *fdf);
@@ -146,6 +144,5 @@ void	usage(void);
 int		is_valid_file(char *filename);
 void	free_map(t_map *map);
 void	free_resources(t_fdf *fdf);
-
 
 #endif

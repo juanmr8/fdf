@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: automated <auto@local>                      +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/05 15:10:00 by auto               #+#    #+#             */
-/*   Updated: 2025/11/05 15:10:00 by auto               ###   ########.fr       */
+/*   Created: 2025/11/11 14:51:52 by jmora-ro          #+#    #+#             */
+/*   Updated: 2025/11/11 15:07:16 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,26 @@ void	handle_zoom_and_reset(int keycode, t_fdf *fdf)
 	}
 }
 
-int		handle_color_keys(int keycode, t_fdf *fdf)
+static int	process_color_key(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_1)
-	{
 		handle_key_number(0, fdf);
-		return (1);
-	}
 	else if (keycode == KEY_2)
-	{
 		handle_key_number(1, fdf);
-		return (1);
-	}
 	else if (keycode == KEY_3)
-	{
 		handle_key_number(2, fdf);
-		return (1);
-	}
 	else if (keycode == KEY_4)
-	{
 		handle_key_number(3, fdf);
-		return (1);
-	}
 	else if (keycode == KEY_5)
-	{
 		handle_key_number(4, fdf);
-		return (1);
-	}
-	return (0);
+	else
+		return (0);
+	return (1);
+}
+
+int	handle_color_keys(int keycode, t_fdf *fdf)
+{
+	return (process_color_key(keycode, fdf));
 }
 
 void	handle_key_number(int scheme, t_fdf *fdf)
@@ -76,5 +68,3 @@ void	handle_key_number(int scheme, t_fdf *fdf)
 	fdf->camera->color_scheme = scheme;
 	redraw(fdf);
 }
-
-

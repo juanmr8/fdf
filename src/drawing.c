@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:39:14 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/05 14:45:53 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/11 14:51:24 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	redraw(t_fdf *fdf)
 {
 	int	total_bytes;
 
-	total_bytes = fdf->mlx->screen_width * fdf->mlx->screen_height * (fdf->mlx->bpp / 8);
+	total_bytes = fdf->mlx->screen_width
+		* fdf->mlx->screen_height * (fdf->mlx->bpp / 8);
 	ft_bzero(fdf->mlx->img_data, total_bytes);
 	draw_map(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr,

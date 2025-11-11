@@ -65,13 +65,7 @@ fclean: clean
 
 re: fclean all
 
-test: $(NAME)
-	./$(NAME) test_maps/42.fdf
-
 debug: CFLAGS += -g3 -fsanitize=address
 debug: $(NAME)
-
-leaks: $(NAME)
-	leaks --atExit -- ./$(NAME) test_maps/42.fdf
 
 .PHONY: all clean fclean re test debug leaks

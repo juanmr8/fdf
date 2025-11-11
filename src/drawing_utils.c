@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmora-ro <jmora-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:38:58 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/05 14:40:22 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/11 14:53:33 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	ft_write_guide(t_fdf *fdf)
 {
 	mlx_string_put(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, 20,
-		(fdf->mlx->screen_height - 50), 0xFFFFFF, "Right Click + Drag to Rotate");
+		(fdf->mlx->screen_height - 50), 0xFFFFFF,
+		"Right Click + Drag to Rotate");
 	mlx_string_put(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, 20,
 		(fdf->mlx->screen_height - 70), 0xFFFFFF, "Left Click + Drag to Pan");
 	mlx_string_put(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, 20,
