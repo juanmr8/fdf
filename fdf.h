@@ -98,6 +98,8 @@ typedef struct s_mlx
 	int		bpp;
 	int		size_line;
 	int		endian;
+	int		screen_width;
+	int		screen_height;
 }	t_mlx;
 
 typedef struct s_fdf

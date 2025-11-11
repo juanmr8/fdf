@@ -8,11 +8,12 @@ int init_graphics(t_fdf *fdf)
 	if (mlx_ptr == NULL)
 		return (0);
 	fdf->mlx->mlx_ptr = mlx_ptr;
-	fdf->mlx->win_ptr = mlx_new_window(fdf->mlx->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+	mlx_get_screen_size(fdf->mlx->mlx_ptr, &fdf->mlx->screen_width, &fdf->mlx->screen_height);
+	fdf->mlx->win_ptr = mlx_new_window(fdf->mlx->mlx_ptr, fdf->mlx->screen_width, fdf->mlx->screen_height, WINDOW_TITLE);
 	if (fdf->mlx->win_ptr == NULL)
 		return (0);
 	mlx_do_sync(fdf->mlx->mlx_ptr);
-	fdf->mlx->img_ptr = mlx_new_image(fdf->mlx->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	fdf->mlx->img_ptr = mlx_new_image(fdf->mlx->mlx_ptr, fdf->mlx->screen_width, fdf->mlx->screen_height);
 	if (fdf->mlx->img_ptr == NULL)
 		return (0);
 	fdf->mlx->img_data = mlx_get_data_addr(fdf->mlx->img_ptr, &fdf->mlx->bpp, &fdf->mlx->size_line, &fdf->mlx->endian);
