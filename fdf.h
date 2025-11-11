@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:58:39 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/11 13:03:51 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/11 13:06:48 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <unistd.h>
 # include <errno.h>
 
-# define WINDOW_WIDTH 1200
-# define WINDOW_HEIGHT 800
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define WINDOW_TITLE "FDF - Wireframe Viewer"
 
 # define KEY_ESC 53
