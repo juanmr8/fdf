@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:58:39 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/11 17:17:05 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:32:23 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_map
 	int		width;
 	int		height;
 	int		**z_matrix;
-	int		**color_matrix;
 	int		z_min;
 	int		z_max;
 	int		z_range;
@@ -80,10 +79,8 @@ typedef struct s_camera
 	int		zoom;
 	int		x_offset;
 	int		y_offset;
-	int		z_scale;
 	double	alpha;
 	double	beta;
-	int		projection;
 	int		color_scheme;
 }	t_camera;
 

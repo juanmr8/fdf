@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 15:57:05 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/11 17:16:37 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:32:23 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static	t_map	init_map(t_map *map, char **argv)
 	map->width = 0;
 	map->height = 0;
 	map->z_matrix = NULL;
-	map->color_matrix = NULL;
 	map->z_min = 0;
 	map->z_max = 0;
 	map->z_range = 0;
@@ -36,10 +35,8 @@ static	t_camera	init_camera(t_camera *camera, t_fdf *fdf)
 	camera->zoom = 20;
 	camera->x_offset = fdf->mlx->screen_width / 2;
 	camera->y_offset = fdf->mlx->screen_height / 2;
-	camera->z_scale = 1;
 	camera->alpha = 0.0;
 	camera->beta = 0.0;
-	camera->projection = 0;
 	camera->color_scheme = 0;
 	return (*camera);
 }

@@ -6,7 +6,7 @@
 /*   By: jmora-ro <jmora-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:24:22 by jmora-ro          #+#    #+#             */
-/*   Updated: 2025/11/11 15:18:50 by jmora-ro         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:25:33 by jmora-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,6 @@ void	free_map(t_map *map)
 	{
 		free_matrix(map->z_matrix, map->height);
 		map->z_matrix = NULL;
-	}
-	if (map->color_matrix)
-	{
-		free_matrix(map->color_matrix, map->height);
-		map->color_matrix = NULL;
 	}
 }
 
